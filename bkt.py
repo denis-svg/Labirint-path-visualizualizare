@@ -14,7 +14,8 @@ white = (255,255,255)
 green = (0,255,0)
 red = (255,0,0)
 black = (0, 0, 0)
-yellow = (255,255,0)
+purple = (104,34,139)
+blue = (0,0,255)
 screen = pygame.display.set_mode((columns*rectwidth, rows*rectwidth))
 di = [-1, 0, 1, 0]
 dj = [0, 1, 0, -1]
@@ -35,11 +36,13 @@ def solve(i, j, step):
 	global array
 	if [i, j] == end:
 		# IF A PATH HAS BEEN FOUND SHOW IT
-		update()
+		update(found=True)
 		pygame.time.delay(1000)
 	else:
 		# CHECKS ALL 4 DIRECTIONS TOP BOT LEFT AND RIGHT
 		for k in range(4):
+			update()
+			pygame.time.delay(50)
 			next_i = i + di[k]
 			next_j = j + dj[k]
 			if isOK(next_i, next_j):
@@ -91,8 +94,12 @@ def checkevents():
 				done = True
 
 
-def update():
+def update(found=False):
 	# TRAVERSING THE ARRAY FOR DRAWING RECTS
+	if not found:
+		color = purple
+	else:
+		color = blue
 	for i in range(rows):
 		# DRAW ORIZONTAL LINES
 		pygame.draw.line(screen, white, (0, i * rectwidth), (columns * rectwidth, i * rectwidth))
@@ -104,7 +111,7 @@ def update():
 			if array[i][j] == 0:
 				pygame.draw.rect(screen, black, (j * rectwidth + 1, i * rectwidth + 1, rectwidth - 1, rectwidth - 1))
 			if array[i][j] >= 2:
-				pygame.draw.rect(screen, yellow, (j * rectwidth + 1, i * rectwidth + 1, rectwidth - 1, rectwidth - 1))
+				pygame.draw.rect(screen, color, (j * rectwidth + 1, i * rectwidth + 1, rectwidth - 1, rectwidth - 1))
 	# DRAW VERTICAL LINES 
 	for j in range(columns):
 		pygame.draw.line(screen, white, (j * rectwidth, 0), (j * rectwidth, rows * rectwidth))
