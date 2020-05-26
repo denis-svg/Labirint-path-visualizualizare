@@ -1,5 +1,5 @@
 import pygame
-
+from sys import exit
 # GLOBAL VARIABLES
 
 done = False
@@ -34,6 +34,10 @@ def isOK(i : int, j : int)->bool:
 
 def solve(i, j, step):
 	global array
+	# CHECK EXIT EVENTS FOR BREAKING FROM BACKTRACKING
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			exit()
 	if [i, j] == end:
 		# IF A PATH HAS BEEN FOUND SHOW IT
 		update(found=True)
