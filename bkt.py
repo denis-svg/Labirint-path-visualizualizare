@@ -4,8 +4,8 @@ import pygame
 
 done = False
 sol = []
-columns = 5
-rows = 5
+columns = 20
+rows = 20
 rectwidth = 25
 array = [[0 for j in range(columns)] for i in range(rows)]
 start = []
@@ -45,7 +45,7 @@ def solve(i, j, step):
 			if isOK(next_i, next_j):
 				array[next_i][next_j] = step
 				solve(next_i, next_j, step + 1)
-				array[next_i][next_j] = -1
+				array[next_i][next_j] = 1
 
 
 def checkevents():
@@ -98,7 +98,7 @@ def update():
 		pygame.draw.line(screen, white, (0, i * rectwidth), (columns * rectwidth, i * rectwidth))
 		for j in range(columns):
 			# IF IT'S A WALL DRAW A WHITE RECT
-			if array[i][j] == 1 or array[i][j] == -1:
+			if array[i][j] == 1:
 				pygame.draw.rect(screen, white, (j * rectwidth, i * rectwidth, rectwidth, rectwidth))
 			# IF IT'S NOT A WALL IN CANSE YOU DELETE IT DRAW A BLACK SPOT
 			if array[i][j] == 0:
